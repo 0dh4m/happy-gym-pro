@@ -1,0 +1,123 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Reusable global helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Entity validations
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['weight', 'height', 'age', 'gender', 'activity', 'fitnessGoal', 'updatedAt'])
+        && data.keys().size() == 7
+        && data.weight is number
+        && data.weight >= 30
+        && data.weight <= 300
+        && data.height is number
+        && data.height >= 100
+        && data.height <= 250
+        && data.age is int
+        && data.age >= 12
+        && data.age <= 120
+        && (data.gender == 'male' || data.gender == 'female')
+        && data.activity is number
+        && data.activity >= 1.0
+        && data.activity <= 2.5
+        && (data.fitnessGoal == 'bulking' || data.fitnessGoal == 'cutting' || data.fitnessGoal == 'maintenance')
+        && data.updatedAt == request.time;
+    }
+
+    function isValidLoggedMeal(data, userId) {
+      return data.keys().hasAll(['id', 'name', 'calories', 'protein', 'carbs', 'fat', 'timestamp', 'createdAt', 'userId'])
+        && data.keys().size() == 9
+        && data.id is string
+        && data.id.size() <= 128
+        && data.name is string
+        && data.name.size() <= 150
+        && data.calories is number
+        && data.calories >= 0
+        && data.calories <= 5000
+        && data.protein is number
+        && data.protein >= 0
+        && data.protein <= 500
+        && data.carbs is number
+        && data.carbs >= 0
+        && data.carbs <= 1000
+        && data.fat is number
+        && data.fat >= 0
+        && data.fat <= 300
+        && data.timestamp is string
+        && data.timestamp.size() <= 100
+        && data.createdAt == request.time
+        && data.userId == userId;
+    }
+
+    function isValidCustomIngredient(data, userId) {
+      return data.keys().hasAll(['name', 'userId', 'createdAt'])
+        && data.keys().size() == 3
+        && data.name is string
+        && data.name.size() <= 100
+        && data.userId == userId
+        && data.createdAt == request.time;
+    }
+
+    // Rules for collections
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      // PII Blanket read safety check
+      allow list: if false;
+
+      allow create: if isOwner(userId) && isValidUserProfile(incoming());
+      
+      // All-or-nothing check using isValidUserProfile
+      allow update: if isOwner(userId) && isValidUserProfile(incoming()) && (
+        incoming().diff(existing()).affectedKeys().hasOnly(['weight', 'height', 'age', 'gender', 'activity', 'fitnessGoal', 'updatedAt'])
+      );
+      
+      allow delete: if isOwner(userId);
+
+      // Subcollection for meals
+      match /logged_meals/{mealId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId); // explicitly restricted to Owner
+        
+        allow create: if isOwner(userId) && isValidId(mealId) && isValidLoggedMeal(incoming(), userId);
+        allow update: if false; // logged meals are immutable in our schema (delete & recreate)
+        allow delete: if isOwner(userId);
+      }
+
+      // Subcollection for custom ingredients
+      match /custom_ingredients/{ingredientId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        
+        allow create: if isOwner(userId) && isValidId(ingredientId) && isValidCustomIngredient(incoming(), userId);
+        allow update: if false; // ingredients update is delete and recreate
+        allow delete: if isOwner(userId);
+      }
+    }
+
+  }
+}

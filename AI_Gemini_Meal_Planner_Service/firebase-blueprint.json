@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with body measurements and fitness goals.",
+      "type": "object",
+      "properties": {
+        "weight": { "type": "number", "description": "Weight in kg" },
+        "height": { "type": "number", "description": "Height in cm" },
+        "age": { "type": "integer", "description": "Age in years" },
+        "gender": { "type": "string", "enum": ["male", "female"], "description": "Gender of the user" },
+        "activity": { "type": "number", "description": "Activity scale multiplier" },
+        "fitnessGoal": { "type": "string", "enum": ["bulking", "cutting", "maintenance"], "description": "Goal for fitness" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last updated timestamp" }
+      },
+      "required": ["weight", "height", "age", "gender", "activity", "fitnessGoal", "updatedAt"]
+    },
+    "LoggedMeal": {
+      "title": "LoggedMeal",
+      "description": "A food meal logged by the user with its calorie and macro coordinates.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Meal ID" },
+        "name": { "type": "string", "description": "Recipe name" },
+        "calories": { "type": "number", "description": "Total Calories of meal" },
+        "protein": { "type": "number", "description": "Total Protein in grams" },
+        "carbs": { "type": "number", "description": "Total Carbs in grams" },
+        "fat": { "type": "number", "description": "Total Fat in grams" },
+        "timestamp": { "type": "string", "description": "Local formatted timestamp" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation timestamp" },
+        "userId": { "type": "string", "description": "User's unique id" }
+      },
+      "required": ["id", "name", "calories", "protein", "carbs", "fat", "timestamp", "createdAt", "userId"]
+    },
+    "CustomIngredient": {
+      "title": "CustomIngredient",
+      "description": "Custom ingredient added by user",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the ingredient" },
+        "userId": { "type": "string", "description": "User ID" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation time" }
+      },
+      "required": ["name", "userId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document containing body stats and goals."
+    },
+    "/users/{userId}/logged_meals/{mealId}": {
+      "schema": "LoggedMeal",
+      "description": "Collection of meals logged by the user."
+    },
+    "/users/{userId}/custom_ingredients/{ingredientId}": {
+      "schema": "CustomIngredient",
+      "description": "Collection of custom ingredients created by the user."
+    }
+  }
+}

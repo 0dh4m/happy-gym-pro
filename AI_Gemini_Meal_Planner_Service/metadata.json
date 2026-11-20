@@ -1,0 +1,6 @@
+{
+  "name": "AI Gym Meal Planner",
+  "description": "مخطط وجبات كمال أجسام وحساب السعرات والماكروز بمساعدة الذكاء الاصطناعي جيميناي",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

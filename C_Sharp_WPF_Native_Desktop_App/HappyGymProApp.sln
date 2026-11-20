@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.37507.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyGymApp", "HappyGymProApp\HappyGymApp.csproj", "{2BF3B9A4-4A6D-4CA9-88B7-9B5707F66C8C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BF3B9A4-4A6D-4CA9-88B7-9B5707F66C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF3B9A4-4A6D-4CA9-88B7-9B5707F66C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BF3B9A4-4A6D-4CA9-88B7-9B5707F66C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BF3B9A4-4A6D-4CA9-88B7-9B5707F66C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {538C73E2-8B8F-488B-B8A3-FC3E6B60CFD2}
+	EndGlobalSection
+EndGlobal
