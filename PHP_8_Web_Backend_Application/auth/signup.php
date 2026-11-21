@@ -2,7 +2,7 @@
 /**
  * Copyright (C) 2026 Adham Cherkaoui Eddeqaqi (0dh4m). All rights reserved.
  * Proprietary and confidential. Unauthorized copying or distribution is strictly prohibited.
- * Author: Adham Cherkaoui Eddeqaqi (0dh4m) <adamcherkaoui99@gmail.com>
+ * Author: Adham Cherkaoui Eddeqaqi (0dh4m) <0dh4mm@gmail.com>
  * GitHub: https://github.com/0dh4m
  */
 
@@ -161,7 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 sendWhatsAppNotification($myWhatsApp, $waMessage);
 
-                $to = "adamcherkaoui99@gmail.com";
+                $to = "0dh4mm@gmail.com";
                 $subject = "🚨 تسجيل كابتن جديد في Happy Meal Planner!";
                 $message = "تم تسجيل كابتن جديد في المنصة:\n\n"
                          . "الاسم: " . $name . "\n"
