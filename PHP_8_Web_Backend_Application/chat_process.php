@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (C) 2026 Adham Cherkaoui Eddeqaqi (0dh4m). All rights reserved.
+ * Proprietary and confidential. Unauthorized copying or distribution is strictly prohibited.
+ * Author: Adham Cherkaoui Eddeqaqi (0dh4m) <adamcherkaoui99@gmail.com>
+ * GitHub: https://github.com/0dh4m
+ */
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['question'])) {
     $question = htmlspecialchars($_POST['question']);
     $geminiApiKey = "YOUR_GEMINI_API_KEY_HERE";

@@ -1,4 +1,11 @@
-<?php $current_page = basename($_SERVER['PHP_SELF']); ?>
+<?php
+/**
+ * Copyright (C) 2026 Adham Cherkaoui Eddeqaqi (0dh4m). All rights reserved.
+ * Proprietary and confidential. Unauthorized copying or distribution is strictly prohibited.
+ * Author: Adham Cherkaoui Eddeqaqi (0dh4m) <adamcherkaoui99@gmail.com>
+ * GitHub: https://github.com/0dh4m
+ */
+ $current_page = basename($_SERVER['PHP_SELF']); ?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="dark">
 <head>

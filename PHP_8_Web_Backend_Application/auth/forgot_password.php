@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright (C) 2026 Adham Cherkaoui Eddeqaqi (0dh4m). All rights reserved.
+ * Proprietary and confidential. Unauthorized copying or distribution is strictly prohibited.
+ * Author: Adham Cherkaoui Eddeqaqi (0dh4m) <adamcherkaoui99@gmail.com>
+ * GitHub: https://github.com/0dh4m
+ */
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
