@@ -8,7 +8,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['question'])) {
     $question = htmlspecialchars($_POST['question']);
-    $geminiApiKey = "YOUR_GEMINI_API_KEY_HERE";
+    $geminiApiKey = getenv('GEMINI_API_KEY') ?: "YOUR_GEMINI_API_KEY_HERE";
 
     $prompt = "أنت مدرب لياقة بدنية وخبير تغذية كمال أجسام ذكي ومحترف. أجب باختصار واحترافية على هذا السؤال الرياضي: " . $question;
 

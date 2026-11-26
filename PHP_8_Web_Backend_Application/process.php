@@ -14,7 +14,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$geminiApiKey = "YOUR_GEMINI_API_KEY_HERE";
+$geminiApiKey = getenv('GEMINI_API_KEY') ?: "YOUR_GEMINI_API_KEY_HERE";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['generate_meal'])) {
     

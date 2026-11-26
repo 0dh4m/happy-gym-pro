@@ -6,10 +6,10 @@
  * GitHub: https://github.com/0dh4m
  */
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$dbname = "gym_db";
+$host = getenv('HAPPY_GYM_DB_HOST') ?: "localhost";
+$user = getenv('HAPPY_GYM_DB_USER') ?: "root";
+$pass = getenv('HAPPY_GYM_DB_PASS') ?: "";
+$dbname = getenv('HAPPY_GYM_DB_NAME') ?: "gym_db";
 
 // تفعيل نظام التقاط الأخطاء المتقدم لتفادي ظهور كود برمجي عند الخطأ
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
